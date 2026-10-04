@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "github_arena": {
+      "command": "node",
+      "args": [
+        "./src/transports/stdio.mjs"
+      ],
+      "cwd": "."
+    }
+  }
+}

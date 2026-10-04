@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+const readJson=async p=>JSON.parse(await readFile(new URL(`../../${p}`,import.meta.url),'utf8'));
+test('portable and Codex compatibility manifests stay equivalent',async()=>{
+  const plugin=await readJson('plugin.json');
+  assert.equal(plugin.$schema,'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json');
+  assert.equal(plugin.name,'github-arena'); assert.equal(plugin.version,'1.2.0'); assert.equal(plugin.license,'MIT');
+  assert.equal(plugin.repository,'https://github.com/WhiteChronos/arena-mcp-runtime');
+  const mcp=await readJson('mcp.json');
+  assert.equal(mcp.$schema,'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json');
+  assert.deepEqual(Object.keys(mcp.mcpServers),['github_arena']);
+  assert.deepEqual(mcp.mcpServers.github_arena,{type:'stdio',command:'node',args:['${PLUGIN_ROOT}/src/transports/stdio.mjs'],cwd:'${PLUGIN_ROOT}'});
+  const compat=await readJson('.codex-plugin/plugin.json');
+  assert.equal(compat.name,'github-arena'); assert.equal(compat.version,'1.2.0');
+  assert.equal(compat.skills,'./skills/'); assert.equal(compat.mcpServers,'./.mcp.json');
+  const cmcp=await readJson('.mcp.json');
+  assert.deepEqual(Object.keys(cmcp.mcpServers),['github_arena']);
+  assert.equal(cmcp.mcpServers.github_arena.command,'node');
+  assert.deepEqual(cmcp.mcpServers.github_arena.args,['./src/transports/stdio.mjs']);
+  assert.equal(cmcp.mcpServers.github_arena.cwd,'.');
+  assert.equal(JSON.stringify(plugin).includes('streamable-http'),false);
+  assert.equal(JSON.stringify(mcp).includes('streamable-http'),false);
+  const check=spawnSync(process.execPath,['scripts/generate-compat-manifests.mjs','--check'],{encoding:'utf8'});
+  assert.equal(check.status,0,check.stderr||check.stdout);
+});

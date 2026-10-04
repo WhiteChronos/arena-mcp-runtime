@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "github-arena",
+  "version": "1.2.0",
+  "description": "Arena-inspired multi-strategy review layer for ChatGPT and Codex with GitHub-specific safeguards.",
+  "author": {
+    "name": "WhiteChronos",
+    "url": "https://github.com/WhiteChronos"
+  },
+  "homepage": "https://github.com/WhiteChronos/arena-mcp-runtime",
+  "repository": "https://github.com/WhiteChronos/arena-mcp-runtime",
+  "license": "MIT",
+  "keywords": ["arena", "review", "github", "codex", "mcp"]
+}
