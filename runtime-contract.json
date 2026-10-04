@@ -1,0 +1,21 @@
+{
+  "contract_version": "whitechronos-runtime/v1",
+  "component": "arena",
+  "component_version": "1.2.0",
+  "plugin_name": "github-arena",
+  "tool_contract": [
+    "arena_plan",
+    "arena_cards",
+    "arena_rubric",
+    "arena_review_checklist"
+  ],
+  "supported_transports": [
+    "stdio",
+    "streamable-http"
+  ],
+  "required_host_capabilities": [],
+  "minimum_codex_version": null,
+  "consumer_compatibility": {
+    "whitechronos-chatgpt": ">=0"
+  }
+}
