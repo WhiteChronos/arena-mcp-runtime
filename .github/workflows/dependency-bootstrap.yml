@@ -1,0 +1,35 @@
+name: Dependency Bootstrap
+
+on:
+  push:
+    branches:
+      - feat/arena-independent-runtime
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - name: Generate lock and install exact dependencies
+        run: |
+          npm install --package-lock-only
+          npm ci
+      - name: Package dependency workspace
+        run: |
+          tar -czf arena-node-deps.tgz node_modules
+      - name: Upload dependency artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arena-node-deps
+          path: |
+            package-lock.json
+            arena-node-deps.tgz
+          retention-days: 1
