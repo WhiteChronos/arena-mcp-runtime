@@ -17,6 +17,7 @@ test('portable and Codex compatibility manifests stay equivalent',async()=>{
   assert.equal(compat.skills,'./skills/'); assert.equal(compat.mcpServers,'./.mcp.json');
   const cmcp=await readJson('.mcp.json');
   assert.deepEqual(Object.keys(cmcp.mcpServers),['github_arena']);
+  assert.equal(cmcp.mcpServers.github_arena.type,'stdio');
   assert.equal(cmcp.mcpServers.github_arena.command,'node');
   assert.deepEqual(cmcp.mcpServers.github_arena.args,['./src/transports/stdio.mjs']);
   assert.equal(cmcp.mcpServers.github_arena.cwd,'.');

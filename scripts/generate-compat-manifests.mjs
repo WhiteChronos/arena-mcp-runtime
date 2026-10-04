@@ -17,7 +17,7 @@ export async function generateCompatibilityManifests({pluginManifestPath='plugin
     skills:'./skills/',mcpServers:'./.mcp.json',
     interface:{displayName:'GitHub Arena',shortDescription:'Multi-strategy review layer for every GitHub task.'}
   };
-  const compatMcp={mcpServers:{[name]:{command:server.command,args,cwd}}};
+  const compatMcp={mcpServers:{[name]:{type:server.type,command:server.command,args,cwd}}};
   return {plugin:stable(compatPlugin),mcp:stable(compatMcp)};
 }
 async function main(){

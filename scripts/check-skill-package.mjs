@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import { access, readFile, rm, mkdir } from 'node:fs/promises';
+import { access, readFile, mkdtemp } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
-import { resolve } from 'node:path';
+import { resolve, join } from 'node:path';
+import { tmpdir } from 'node:os';
 
 const skillRoot=resolve('skills/github-arena');
 const skillMd=await readFile(resolve(skillRoot,'SKILL.md'),'utf8');
@@ -13,9 +14,9 @@ for(const p of [
   'references/rubric.md','references/codex-global.md','scripts/arena_review.py','scripts/install_codex_global.py'
 ]) await access(resolve(skillRoot,p));
 if(skillMd.includes('WhiteChronos/ChatGPT/plugins/github-arena')) throw new Error('Skill contains legacy runtime path dependency');
-const out=resolve('.tmp-skill-package'); await rm(out,{recursive:true,force:true}); await mkdir(out,{recursive:true});
-const zip=spawnSync('zip',['-qr',resolve(out,'skill.zip'),'github-arena'],{cwd:resolve('skills'),encoding:'utf8'});
+const out=await mkdtemp(join(tmpdir(),'arena-skill-package-'));
+const zip=spawnSync('zip',['-qr',join(out,'skill.zip'),'github-arena'],{cwd:resolve('skills'),encoding:'utf8'});
 if(zip.status!==0) throw new Error(zip.stderr||zip.stdout||'zip failed');
-const list=spawnSync('unzip',['-t',resolve(out,'skill.zip')],{encoding:'utf8'});
+const list=spawnSync('unzip',['-t',join(out,'skill.zip')],{encoding:'utf8'});
 if(list.status!==0) throw new Error(list.stderr||list.stdout||'zip verification failed');
-process.stdout.write(JSON.stringify({skill:'github-arena',package:'PASS',output:resolve(out,'skill.zip')})+'\n');
+process.stdout.write(JSON.stringify({skill:'github-arena',package:'PASS',output:join(out,'skill.zip')})+'\n');

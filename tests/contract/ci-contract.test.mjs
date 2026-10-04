@@ -16,3 +16,13 @@ test('CI verifies the independent Arena runtime without deployment or live-host 
   assert.equal(text.includes('LIVE_VERIFIED'),false);
   assert.equal(text.includes('host discovery'),false);
 });
+
+test('Skill package verifier writes its ZIP outside the repository worktree', async()=>{
+  const { spawnSync } = await import('node:child_process');
+  const { resolve } = await import('node:path');
+  const run=spawnSync(process.execPath,['scripts/check-skill-package.mjs'],{encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr||run.stdout);
+  const payload=JSON.parse(run.stdout.trim());
+  const root=resolve('.');
+  assert.equal(resolve(payload.output).startsWith(root + '/'),false,`package output leaked into worktree: ${payload.output}`);
+});
