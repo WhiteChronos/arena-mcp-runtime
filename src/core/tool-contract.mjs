@@ -1,0 +1,33 @@
+export const ARENA_TOOL_NAMES = [
+  'arena_plan',
+  'arena_cards',
+  'arena_rubric',
+  'arena_review_checklist',
+];
+
+export const ARENA_TOOL_DEFINITIONS = [
+  {
+    name: 'arena_plan',
+    description: 'Plan an Arena review or tournament size and return rounds and workload estimates. Read-only; does not run agents.',
+    inputSchema: { type: 'object', properties: { agents: { type: 'integer', minimum: 1, maximum: 2160, default: 16 } }, additionalProperties: false },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
+  },
+  {
+    name: 'arena_cards',
+    description: 'Generate deterministic Arena strategy cards combining reasoning mode, workflow, and strategy. Read-only.',
+    inputSchema: { type: 'object', properties: { agents: { type: 'integer', minimum: 1, maximum: 2160, default: 4 }, seed: { default: 7 } }, additionalProperties: false },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
+  },
+  {
+    name: 'arena_rubric',
+    description: 'Return the GitHub Arena scoring rubric used to compare candidate solutions. Read-only.',
+    inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
+  },
+  {
+    name: 'arena_review_checklist',
+    description: 'Return the required Arena review checklist. Set github=true for GitHub work and high_impact=true for complex or risky work. Read-only.',
+    inputSchema: { type: 'object', properties: { high_impact: { type: 'boolean', default: false }, github: { type: 'boolean', default: false } }, additionalProperties: false },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
+  },
+];
