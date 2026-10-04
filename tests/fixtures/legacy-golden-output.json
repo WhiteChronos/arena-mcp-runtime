@@ -1,0 +1,32 @@
+{
+  "plan": {
+    "0": {"strategies":1,"rounds":0,"alive_per_round":[1],"upstream_equivalent_calls":1,"mode":"micro"},
+    "1": {"strategies":1,"rounds":0,"alive_per_round":[1],"upstream_equivalent_calls":1,"mode":"micro"},
+    "4": {"strategies":4,"rounds":2,"alive_per_round":[4,2,1],"upstream_equivalent_calls":19,"mode":"micro"},
+    "16": {"strategies":16,"rounds":4,"alive_per_round":[16,8,4,2,1],"upstream_equivalent_calls":91,"mode":"review"},
+    "17": {"strategies":17,"rounds":5,"alive_per_round":[17,9,5,3,2,1],"upstream_equivalent_calls":97,"mode":"full"},
+    "2160": {"strategies":2160,"rounds":12,"alive_per_round":[2160,1080,540,270,135,68,34,17,9,5,3,2,1],"upstream_equivalent_calls":12955,"mode":"full"},
+    "2161": {"strategies":2160,"rounds":12,"alive_per_round":[2160,1080,540,270,135,68,34,17,9,5,3,2,1],"upstream_equivalent_calls":12955,"mode":"full"}
+  },
+  "cards": {
+    "seed7_number": {"seed":"7","cards":[
+      {"id":"a001","reasoning":"first-principles","workflow":"build-then-break","strategy":"maximal-rigour"},
+      {"id":"a002","reasoning":"socratic","workflow":"research-then-synthesise","strategy":"built-to-last"},
+      {"id":"a003","reasoning":"analogy","workflow":"write-then-restructure","strategy":"edge-cases-first"},
+      {"id":"a004","reasoning":"dialectical","workflow":"test-first","strategy":"clarity"}
+    ]},
+    "seed7_string": {"seed":"7","cards":[
+      {"id":"a001","reasoning":"first-principles","workflow":"build-then-break","strategy":"maximal-rigour"},
+      {"id":"a002","reasoning":"socratic","workflow":"research-then-synthesise","strategy":"built-to-last"},
+      {"id":"a003","reasoning":"analogy","workflow":"write-then-restructure","strategy":"edge-cases-first"},
+      {"id":"a004","reasoning":"dialectical","workflow":"test-first","strategy":"clarity"}
+    ]}
+  },
+  "rubric": {"rubric":{"correctness":30,"completeness":25,"robustness":20,"specificity":15,"clarity":10},"formula":"(correctness*30 + completeness*25 + robustness*20 + specificity*15 + clarity*10) / 10"},
+  "checklists": {
+    "false_false": {"mode":"micro","checks":["evidence-first","constraint-first","edge-cases-first","built-to-last"],"rubric":{"correctness":30,"completeness":25,"robustness":20,"specificity":15,"clarity":10}},
+    "false_true": {"mode":"micro","checks":["evidence-first","constraint-first","edge-cases-first","built-to-last","read AGENTS.md and repository instructions","verify repository, branch and target path from current state","verify result after mutation","preserve provenance and licensing"],"rubric":{"correctness":30,"completeness":25,"robustness":20,"specificity":15,"clarity":10}},
+    "true_false": {"mode":"review","checks":["evidence-first","constraint-first","edge-cases-first","built-to-last"],"rubric":{"correctness":30,"completeness":25,"robustness":20,"specificity":15,"clarity":10}},
+    "true_true": {"mode":"review","checks":["evidence-first","constraint-first","edge-cases-first","built-to-last","read AGENTS.md and repository instructions","verify repository, branch and target path from current state","verify result after mutation","preserve provenance and licensing"],"rubric":{"correctness":30,"completeness":25,"robustness":20,"specificity":15,"clarity":10}}
+  }
+}
